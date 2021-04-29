@@ -8,6 +8,7 @@ with open('./images/gf.jpg', mode='rb') as file:
 data = {"inputs": [{"b64": base64.encodebytes(img).decode("utf-8")}]}
 
 # Making the request
+# localhost can be an external ip (Serving with Kubernetes)
 json_response = requests.post("http://localhost:8501/v1/models/inception_v3/versions/2:predict", data=json.dumps(data))
 # print(json_response.request)
 # print(json_response.content)

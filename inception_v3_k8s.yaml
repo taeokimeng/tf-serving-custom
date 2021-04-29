@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inceptionv3-deployment
+spec:
+  selector:
+    matchLabels:
+      app: inceptionv3-server
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: inceptionv3-server
+    spec:
+      containers:
+      - name: inceptionv3-container
+        image: tokimeng/inception_v3:latest
+        ports:
+        - containerPort: 8500
+          name: grpc
+        - containerPort: 8501
+          name: restapi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: inceptionv3-service
+  name: inceptionv3-service
+spec:
+  ports:
+  - port: 8500
+    targetPort: 8500
+    name: grpc
+  - port: 8501
+    targetPort: 8501
+    name: restapi
+  selector:
+    app: inceptionv3-server
+  type: LoadBalancer
