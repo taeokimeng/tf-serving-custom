@@ -61,9 +61,20 @@ kubectl get services
 kubectl describe service inceptionv3-service
 ~~~
 
-7. Expose an external ip. (minikube use)
+7. Expose an external ip. (When minikube is used to test locally)
 ~~~
 minikube tunnel
 ~~~
 
-8. Run ```prediction_request.py``` and check the prediction.
+8. Run ```prediction_request.py``` and check the prediction. (Make sure input the external ip before you run)
+
+## Cleaning up
+To delete the Service:
+~~~~
+kubectl delete services my-service
+~~~~
+
+To delete the Deployment, the ReplicaSet, and the Pods that are running the Hello World application:
+~~~
+kubectl delete deployment hello-world
+~~~
